@@ -1,34 +1,25 @@
 import React from "react"
 import Navigation from "./navigation"
+import { useStaticQuery, graphql } from "gatsby"
 
-const menuItems = [
-  {
-    text: "Predavanja",
-    link: "/predavanja"
-  },{
-    text: "Ocjenjivanje",
-    link: "/ocjenjivanje"
-  },
-  {
-    text: "Projekti",
-    link: "/projekti"
-  },
-  {
-    text: "Rezultati",
-    link: "/rezultati"
-  },
-  {
-    text: "Blog",
-    link: "/blog"
-  }
-]
-
-const Layout = ({props}) => {
+const Layout = (props) => {
   
   console.log(props)
+  const data = useStaticQuery(graphql`
+  {
+    site {
+      siteMetadata {
+        menuItems {
+          text
+          path
+        }
+      }
+    }
+  }
+`)
   
   return <div style={{ backgroundColor: "orange"}}>
-    <Navigation menuItems={menuItems}/>
+    <Navigation menuItems={data.site.siteMetadata.menuItems}/>
     {props.children}
   </div>}
 

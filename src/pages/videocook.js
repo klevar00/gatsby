@@ -1,9 +1,9 @@
 import React from "react"
 import Layout from "../components/layout"
 
-const IndexPage = () => (
+const VideoCookPage = () => (
 <Layout>
 </Layout>
 )
 
-export default IndexPage
+export default VideoCookPage
