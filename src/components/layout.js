@@ -18,7 +18,7 @@ const Layout = (props) => {
   }
 `)
   
-  return <div style={{ backgroundColor: "orange"}}>
+  return <div>
     <Navigation menuItems={data.site.siteMetadata.menuItems}/>
     {props.children}
   </div>}

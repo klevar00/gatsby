@@ -37,6 +37,7 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    `gatsby-plugin-emotion`,
     `gatsby-plugin-theme-ui`,
     {
       resolve: `gatsby-plugin-manifest`,

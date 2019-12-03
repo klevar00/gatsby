@@ -1,8 +1,10 @@
-import React from "react"
+/** @jsx jsx */
+import { jsx, useThemeUI, Header } from "theme-ui"
+import { useRef, useState } from "react"
 import {Link} from "gatsby"
-import { jsx } from "theme-ui"
 
 import Container from "./container"
+import { useResponsiveMenu, useOnOutsideEvent } from "../hooks"
 
 import logo from "../assets/logo.svg"
 
@@ -24,7 +26,7 @@ const LogoLink = () => (
       {...prop}
       sx={{
         display: "inline-block",
-        color: "primary",
+        color: theme => `${theme.colors.primary}`,
         textDecoration: "none",
         textTransform: "uppercase",
         fontWeight: "light",
@@ -35,25 +37,169 @@ const LogoLink = () => (
     />
   )
 
+  const VisibleNavLink = ({ ...prop }) => {
+    const { theme } = useThemeUI()
+  
+    return (
+      <NavLink
+        {...prop}
+        sx={{
+          mx: 2,
+          px: 2,
+          lineHeight: theme =>
+            `calc(${theme.sizes.navBar} - 2 * ${theme.sizes.navLinkBorder})`,
+          borderTop: theme => `${theme.sizes.navLinkBorder} solid transparent`,
+          borderBottom: theme => `${theme.sizes.navLinkBorder} solid transparent`,
+          "&:hover": {
+            color: theme => `${theme.colors.primary}`,
+            borderBottom: theme =>
+              `${theme.sizes.navLinkBorder} solid ${theme.colors.orange[3]}`,
+          },
+        }}
+        activeStyle={{
+          color: theme.colors.primaryHover,
+          borderBottom: `${theme.sizes.navLinkBorder} solid ${theme.colors.orange[3]}`,
+        }}
+      />
+    )
+  }
 
+  const HiddenNavLink = ({ ...prop }) => {
+    const { theme } = useThemeUI()
+  
+    return (
+      <NavLink
+        {...prop}
+        sx={{
+          m: 2,
+          px: 3,
+          py: 2,
+          borderLeft: theme => `${theme.sizes.navLinkBorder} solid transparent`,
+          "&:hover": {
+            color: theme => `${theme.colors.primary}`,
+            borderLeft: theme =>
+              `${theme.sizes.navLinkBorder} solid ${theme.colors.primaryHover}`,
+          },
+        }}
+        activeStyle={{
+          color: theme.colors.primaryHover,
+          borderLeft: `${theme.sizes.navLinkBorder} solid ${theme.colors.primaryHover}`,
+        }}
+      />
+    )
+  }
 
-const Navigation = ({menuItems}) => {
+  const Triangle = () => (
+    <div
+      sx={{
+        position: "absolute",
+        top: "-12px",
+        right: "15px",
+        width: "22px",
+        height: "22px",
+        lineHeight: 0,
+        fontSize: 0,
+        border: theme => theme.borders.header,
+        borderWidth: "0 0 1px 1px",
+        transform: "rotate(135deg)",
+        backgroundColor: "white",
+      }}
+    />
+  )
 
-    const nav =  menuItems.map(({path,text}) => (
-          <Link to={path}>{text}</Link>
-        ))
+  const VisibleItems = ({ visibleItems }) =>
+  visibleItems.map(menuItem => (
+    <VisibleNavLink key={menuItem.path} to={menuItem.path}>
+      {menuItem.text}
+    </VisibleNavLink>
+  ))
 
-    return(  
-    <Container
-            sx={{
+  const HiddenItems = ({
+    menu,
+    handleOutsideClick,
+    minWidth = 120,
+    spaceForTriangle = 16,
+    zIndex = 999,
+  }) => {
+    const { innerBorderRef } = useOnOutsideEvent(handleOutsideClick)
+    return (
+      <div
+        ref={innerBorderRef}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          position: "absolute",
+          top: menu.offset + spaceForTriangle,
+          p: 2,
+          zIndex,
+          minWidth,
+          backgroundColor: "white",
+          border: theme => theme.borders.header,
+          boxShadow: theme => theme.shadows.header,
+        }}
+      >
+        <Triangle />
+        {menu.hiddenItems.map(menuItem => (
+          <HiddenNavLink key={menuItem.path} to={menuItem.path}>
+            {menuItem.text}
+          </HiddenNavLink>
+        ))}
+      </div>
+    )
+  }
+
+  const Nav = ({ menuItems }) => {
+    const containerRef = useRef(null)
+    const [open, setOpen] = useState(false)
+    const { menu } = useResponsiveMenu({ containerRef, menuItems })
+  
+    const isHiddenEmpty = menu.hiddenItems.length === 0
+  
+    const handleMoreClick = () => setOpen(true)
+    const handleOutsideClick = () => setOpen(false)
+  
+    return (
+      <nav
+        ref={containerRef}
+        sx={{
+          display: "flex",
+          boxSizing: "border-box",
+          justifyContent: "flex-end",
+          flex: "auto",
+          ml: [3, 4],
+          overflowX: "auto",
+        }}
+      >
+        <VisibleItems visibleItems={menu.visibleItems} />
+        {!isHiddenEmpty }
+        {!isHiddenEmpty &&
+          (open && (
+            <HiddenItems menu={menu} handleOutsideClick={handleOutsideClick} />
+          ))}
+      </nav>
+    )
+  }
+
+  const Navigation = ({ menuItems }) => {
+    return (
+      <Header
+        sx={{
+          borderBottom: theme => theme.borders.header,
+          position: "relative",
+        }}
+      >
+        <Container
+          sx={{
             display: "flex",
             justifyContent: "space-between",
             alignContent: "center",
-            }}>
-    <LogoLink />
-    {nav}
-    </Container> )
-}
-
+          }}
+        >
+          <LogoLink />
+          <Nav menuItems={menuItems} />
+        </Container>
+      </Header>
+    )
+  }
 
 export default Navigation
