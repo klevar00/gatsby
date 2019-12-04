@@ -1,6 +1,7 @@
 import React from "react"
 import Navigation from "./navigation"
 import { useStaticQuery, graphql } from "gatsby"
+import Footer from "../components/footer"
 
 const Layout = (props) => {
   
@@ -21,6 +22,7 @@ const Layout = (props) => {
   return <div>
     <Navigation menuItems={data.site.siteMetadata.menuItems}/>
     {props.children}
+    <Footer/>
   </div>}
 
 
