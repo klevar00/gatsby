@@ -7,6 +7,7 @@ import Container from "./container"
 import { useResponsiveMenu, useOnOutsideEvent } from "../hooks"
 
 import logo from "../assets/logo.svg"
+import more from "../assets/more.svg"
 
 
 const LogoLink = () => (
@@ -35,6 +36,33 @@ const LogoLink = () => (
         transition: "all 0.25s linear",
       }}
     />
+  )
+
+  const MoreButton = ({ onClick, width = 50 }) => (
+    <div
+      sx={{
+        display: "flex",
+        flexShrink: 0,
+        alignItems: "center",
+        width,
+        px: 3,
+        cursor: "pointer",
+        "&:hover": {
+          backgroundColor: "indigo.2",
+        },
+      }}
+      onClick={onClick}
+    >
+      <img
+        src={more}
+        sx={{
+          stroke: "red",
+          height: theme =>
+            `calc(calc(${theme.sizes.navBar} - 2 * ${theme.sizes.navLinkBorder})/4)`,
+          width: "auto",
+        }}
+      />
+    </div>
   )
 
   const VisibleNavLink = ({ ...prop }) => {
@@ -171,7 +199,7 @@ const LogoLink = () => (
         }}
       >
         <VisibleItems visibleItems={menu.visibleItems} />
-        {!isHiddenEmpty }
+        {!isHiddenEmpty && <MoreButton onClick={handleMoreClick} />}  
         {!isHiddenEmpty &&
           (open && (
             <HiddenItems menu={menu} handleOutsideClick={handleOutsideClick} />

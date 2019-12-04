@@ -1,7 +1,21 @@
+/** @jsx jsx */
 import React from "react"
 import Navigation from "./navigation"
 import { useStaticQuery, graphql } from "gatsby"
+import { css, jsx, Main } from "theme-ui"
 import Footer from "../components/footer"
+
+const SiteContainer = props => (
+  <div
+    {...props}
+    sx={{
+      display: "flex",
+      flexDirection: "column",
+      margin: "0 auto", 
+      maxWidth: "75%"
+    }}
+  />
+)
 
 const Layout = (props) => {
   
@@ -19,9 +33,19 @@ const Layout = (props) => {
   }
 `)
   
-  return <div>
-    <Navigation menuItems={data.site.siteMetadata.menuItems}/>
+  return <div
+    sx={{
+      display: "flex",
+      flexDirection: "column",
+      margin: "0 auto", 
+      minHeight: "100vh"
+    }}>
+    <Navigation 
+    
+    menuItems={data.site.siteMetadata.menuItems}/>
+    <SiteContainer>
     {props.children}
+    </SiteContainer>
     <Footer/>
   </div>}
 
