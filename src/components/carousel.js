@@ -18,9 +18,7 @@ const Carousel = ({images}) => {
 
     return <Slider {...settings}>
         {images.map(image => (
-            // <Img fluid={image.frontmatter.img.childImageSharp.fluid}
-            // ></Img>
-            <img src={image.frontmatter.img.childImageSharp.resize.src}></img>
+            <img src={image.frontmatter.img.childImageSharp.resize.src}/>
         ))}
     </Slider>
 
