@@ -12,13 +12,14 @@ import more from "../assets/more.svg"
 
 const LogoLink = () => (
     <Link to="/" sx={{ display: "flex", alignItems: "center" }}>
-      <img
+      {/* <img
         src={logo}
         sx={{
           height: "logo",
           width: "auto",
         }}
-      />
+      /> */}
+      <h3>LOGO</h3>
     </Link>
   )
 
