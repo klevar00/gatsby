@@ -2,7 +2,7 @@
 path: "/blog/pillsbury-strawberry-cream-cinnamon-rolls"
 date: "2019-05-04"
 title: "Pillsbury’s Strawberry & Cream Cinnamon Roll Cans Are Back"
-img: ./pillsbury-strawberry-cream-cinnamon-rolls
+img: ./pillsbury-strawberry-cream-cinnamon-rolls.jpg
 ---
 https://www.myrecipes.com/news/pillsbury-strawberry-cream-cinnamon-rolls
 

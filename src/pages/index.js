@@ -2,14 +2,15 @@
 import { jsx } from "theme-ui"
 import Layout from "../components/layout"
 import SEO from "../components/seo" 
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import Carousel from "../components/carousel"
+import ImageTitleText from "../components/imageTitleText"
 import Img from "gatsby-image"
 import { Grid } from "@theme-ui/components"
 
 const IndexPage = ({data}) => {
 
-  const {sliderImages, popularRecipes} = data
+  const {sliderImages, popularRecipes, blogPosts} = data
 
 return <Layout>
     <SEO title="Home"/>
@@ -20,12 +21,12 @@ return <Layout>
       }}>
       <Carousel images = {sliderImages.nodes}/>
     </div>
-    <PopularRecipes images = {popularRecipes.nodes}/>
-    <BlogPosts/>
+    <PopularRecipes recipesData = {popularRecipes.nodes}/>
+    <BlogPosts posts={blogPosts.nodes}/>
     </Layout>
 }
 
-const PopularRecipes = ({images}) => {
+const PopularRecipes = ({recipesData}) => {
 
   return <div  sx={{width: "80%",maxWidth: "container", margin: "0 auto",
         borderBottom: "1px solid orange",
@@ -33,20 +34,30 @@ const PopularRecipes = ({images}) => {
       }}>
         <h3 sx={{textAlign: "left"}}>Most popular recipes</h3>
         <Grid gap={[4]} columns={[1, 2 , 4 ,4]}>
-        {images.map( image => {
-
+        {recipesData.map( recipe => {
+          console.log("cevaap")
+          console.log(recipe.id)
         return (
-            <Img
-              key={image.id}
-              fluid={{ ...image.frontmatter.img.childImageSharp.fluid, aspectRatio: 21 / 15 }}
-            />
+          // <a href={recipe.frontmatter.path}>
+          //   <Img
+          //     key={recipe.id}
+          //     fluid={{ ...recipe.frontmatter.img.childImageSharp.fluid, aspectRatio: 21 / 15 }}
+          //   ></Img>
+          // </a>
+          <Link to={recipe.frontmatter.path} key={recipe.id}>
+          <Img
+            key={recipe.id}
+            fluid={{ ...recipe.frontmatter.img.childImageSharp.fluid, aspectRatio: 21 / 15 }}
+          ></Img>
+          </Link>
         )
         })}
         </Grid>
     </div>
 }
 
-const BlogPosts = () => {
+const BlogPosts = ({posts}) => {
+  console.log(posts)
   return <div  sx={{width: "80%",maxWidth: "container", margin: "0 auto",
         borderBottom: "1px solid orange",
         py: "30px"
@@ -59,6 +70,9 @@ const BlogPosts = () => {
             justifyContent: "space-around"
           }}
         >
+          {posts.map( post => (
+              <ImageTitleText key={post.id} data={post}></ImageTitleText>
+          ))}
           <h3>test</h3>
           <h3>test</h3>
           <h3>test</h3>
@@ -70,41 +84,11 @@ const BlogPosts = () => {
 
 export default IndexPage
 
-
-
-// popularRecipes: allMarkdownRemark(limit: 5) {
-//   nodes {
-//     frontmatter {
-//       img {
-//         childImageSharp {
-//           fluid {
-//             src
-//           }
-//         }
-//       }
-//     }
-//   }
-// }
-
 export const query = graphql`
   {
     sliderImages: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "//markdown-pages/recipes/"}}) {
       nodes {
-        frontmatter {
-          img {
-            childImageSharp {
-              resize(height: 400, width: 1000) {
-                src
-              }
-            }
-          }
-        }
-      }
-    }
-    
-
-    popularRecipes: allMarkdownRemark(limit: 4, filter: {fileAbsolutePath: {regex: "//markdown-pages/recipes/"}}) {
-      nodes {
+        id
         frontmatter {
           img {
             childImageSharp {
@@ -116,5 +100,41 @@ export const query = graphql`
         }
       }
     }
+    
+
+    popularRecipes: allMarkdownRemark(limit: 4, filter: {fileAbsolutePath: {regex: "//markdown-pages/recipes/"}}) {
+      nodes {
+        id
+        frontmatter {
+          path
+          img {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+        }
+      }
+    }
+
+
+    blogPosts: allMarkdownRemark(limit: 4, filter: {fileAbsolutePath: {regex: "//markdown-pages/blog-posts/"}}) {
+      nodes {
+        id
+        html
+        frontmatter {
+          img {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+          title
+        }
+      }
+    }
+
   }
 `
