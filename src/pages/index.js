@@ -2,33 +2,14 @@
 import { jsx } from "theme-ui"
 import Layout from "../components/layout"
 import SEO from "../components/seo" 
-import { useStaticQuery, graphql } from "gatsby"
+import { graphql } from "gatsby"
 import Carousel from "../components/carousel"
 import Img from "gatsby-image"
-import { Grid, Card } from "@theme-ui/components"
+import { Grid } from "@theme-ui/components"
 
-const IndexPage = () => {
-  const data = useStaticQuery(graphql` {
-  allMarkdownRemark {
-    nodes {
-      frontmatter {
-        img {
-          childImageSharp {
-            resize(height: 400,width: 1000) {
-              src
-            }
-            fluid{
-              ...GatsbyImageSharpFluid
-            }
-          }
-        }
-      }
-    }
-  }
-}
-`)
+const IndexPage = ({data}) => {
 
-const images = data.allMarkdownRemark.nodes
+  const {sliderImages, popularRecipes} = data
 
 return <Layout>
     <SEO title="Home"/>
@@ -37,9 +18,9 @@ return <Layout>
         borderBottom: "1px solid orange",
         paddingBottom: "30px"
       }}>
-      <Carousel images = {images}/>
+      <Carousel images = {sliderImages.nodes}/>
     </div>
-    <PopularRecipes images = {images}/>
+    <PopularRecipes images = {popularRecipes.nodes}/>
     <BlogPosts/>
     </Layout>
 }
@@ -51,7 +32,7 @@ const PopularRecipes = ({images}) => {
         py: "30px",
       }}>
         <h3 sx={{textAlign: "left"}}>Most popular recipes</h3>
-        <Grid gap={[4]} columns={[2, 2 , 3 ,6]}>
+        <Grid gap={[4]} columns={[1, 2 , 4 ,4]}>
         {images.map( image => {
 
         return (
@@ -88,3 +69,52 @@ const BlogPosts = () => {
 }
 
 export default IndexPage
+
+
+
+// popularRecipes: allMarkdownRemark(limit: 5) {
+//   nodes {
+//     frontmatter {
+//       img {
+//         childImageSharp {
+//           fluid {
+//             src
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+export const query = graphql`
+  {
+    sliderImages: allMarkdownRemark {
+      nodes {
+        frontmatter {
+          img {
+            childImageSharp {
+              resize(height: 400, width: 1000) {
+                src
+              }
+            }
+          }
+        }
+      }
+    }
+    
+
+    popularRecipes: allMarkdownRemark(limit: 4, filter: {fileAbsolutePath: {regex: "//markdown-pages/recipes/"}}) {
+      nodes {
+        frontmatter {
+          img {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
