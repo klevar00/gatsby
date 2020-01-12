@@ -88,7 +88,7 @@ export default IndexPage
 
 export const query = graphql`
   {
-    sliderImages: allMarkdownRemark {
+    sliderImages: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "//markdown-pages/recipes/"}}) {
       nodes {
         frontmatter {
           img {
