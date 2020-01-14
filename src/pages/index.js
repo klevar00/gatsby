@@ -4,9 +4,9 @@ import Layout from "../components/layout"
 import SEO from "../components/seo" 
 import { graphql, Link } from "gatsby"
 import Carousel from "../components/carousel"
-import ImageTitleText from "../components/imageTitleText"
+import {ImageTitleText} from "../components/themeUIComponents"
 import Img from "gatsby-image"
-import { Grid } from "@theme-ui/components"
+import { Grid, Card } from "@theme-ui/components"
 
 const IndexPage = ({data}) => {
 
@@ -35,15 +35,7 @@ const PopularRecipes = ({recipesData}) => {
         <h3 sx={{textAlign: "left"}}>Most popular recipes</h3>
         <Grid gap={[4]} columns={[1, 2 , 4 ,4]}>
         {recipesData.map( recipe => {
-          console.log("cevaap")
-          console.log(recipe.id)
         return (
-          // <a href={recipe.frontmatter.path}>
-          //   <Img
-          //     key={recipe.id}
-          //     fluid={{ ...recipe.frontmatter.img.childImageSharp.fluid, aspectRatio: 21 / 15 }}
-          //   ></Img>
-          // </a>
           <Link to={recipe.frontmatter.path} key={recipe.id}>
           <Img
             key={recipe.id}
@@ -128,6 +120,9 @@ export const query = graphql`
             childImageSharp {
               fluid {
                 ...GatsbyImageSharpFluid
+              }
+              fixed(width: 210, height: 90) {
+                ...GatsbyImageSharpFixed
               }
             }
           }

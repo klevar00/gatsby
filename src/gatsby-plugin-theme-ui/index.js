@@ -41,6 +41,13 @@ const theme = {
       py: 1,
     },
   },
+  cards: {
+    primary: {
+      padding: 2,
+      borderRadius: 2,
+      boxShadow: theme => `0 0 8px ${theme.colors.orange[2]}`,
+    },
+  },
   shadows: {
     header: theme =>
       `0 4px 6px ${theme.colors.orange[1]}, 0 0 1px rgba(1,0,0,.1)`,
