@@ -45,6 +45,7 @@ const theme = {
     primary: {
       padding: 2,
       borderRadius: 2,
+      m: 2,
       boxShadow: theme => `0 0 8px ${theme.colors.orange[2]}`,
     },
   },
