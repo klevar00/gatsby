@@ -5,6 +5,7 @@ import SEO from "../components/seo"
 import { graphql, Link } from "gatsby"
 import Carousel from "../components/carousel"
 import {ImageTitleText} from "../components/themeUIComponents"
+import {ImageTitle} from "../components/themeUIComponents"
 import Img from "gatsby-image"
 import { Grid, Card } from "@theme-ui/components"
 
@@ -21,30 +22,26 @@ return <Layout>
       }}>
       <Carousel images = {sliderImages.nodes}/>
     </div>
-    <PopularRecipes recipesData = {popularRecipes.nodes}/>
+    <PopularRecipes recipes = {popularRecipes.nodes}/>
     <BlogPosts posts={blogPosts.nodes}/>
     </Layout>
 }
 
-const PopularRecipes = ({recipesData}) => {
+const PopularRecipes = ({recipes}) => {
 
   return <div  sx={{width: "80%",maxWidth: "container", margin: "0 auto",
         borderBottom: "1px solid orange",
         py: "30px",
       }}>
         <h3 sx={{textAlign: "left"}}>Most popular recipes</h3>
-        <Grid gap={[4]} columns={[1, 2 , 4 ,4]}>
-        {recipesData.map( recipe => {
+         <Grid gap={[2]} columns={[1, 2 , 4 ,4]}>
+        {recipes.map( recipe => {
         return (
-          <Link to={recipe.frontmatter.path} key={recipe.id}>
-          <Img
-            key={recipe.id}
-            fluid={{ ...recipe.frontmatter.img.childImageSharp.fluid, aspectRatio: 21 / 15 }}
-          ></Img>
-          </Link>
+           <ImageTitle data={recipe}/>
         )
         })}
         </Grid>
+
     </div>
 }
 
@@ -65,11 +62,12 @@ const BlogPosts = ({posts}) => {
           {posts.map( post => (
               <ImageTitleText key={post.id} data={post}></ImageTitleText>
           ))}
-          <h3>test</h3>
-          <h3>test</h3>
-          <h3>test</h3>
-          <h3>test</h3>
-          <h3>test</h3>
+                   {posts.map( post => (
+              <ImageTitleText key={post.id} data={post}></ImageTitleText>
+          ))}
+                   {posts.map( post => (
+              <ImageTitleText key={post.id} data={post}></ImageTitleText>
+          ))}
         </div>
     </div>
 }
@@ -106,6 +104,7 @@ export const query = graphql`
               }
             }
           }
+          title
         }
       }
     }

@@ -12,7 +12,7 @@ const SiteContainer = props => (
       display: "flex",
       flexDirection: "column",
       margin: "0 auto", 
-      width: "75%",
+      width: "85%",
       pb: "2em"
     }}
   />

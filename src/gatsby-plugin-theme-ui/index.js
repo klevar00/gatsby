@@ -46,7 +46,10 @@ const theme = {
       padding: 2,
       borderRadius: 2,
       m: 2,
-      boxShadow: theme => `0 0 8px ${theme.colors.orange[2]}`,
+      boxShadow: theme => `0 0 8px ${theme.colors.indigo[2]}`,
+      "&:hover": {
+        boxShadow: theme => `0 0 8px ${theme.colors.orange[2]}`,
+      },
     },
   },
   shadows: {
