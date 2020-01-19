@@ -6,8 +6,8 @@ export default function Template({ data }) {
   const { markdownRemark } = data
 
   return <Layout>
-              <h1>{markdownRemark.frontmatter.title}</h1>
-              <h2>{markdownRemark.frontmatter.date}</h2>
+              {/* <h1>{markdownRemark.frontmatter.title}</h1>
+              <h2>{markdownRemark.frontmatter.date}</h2> */}
               {/* <div
                 className="blog-post-content"
                 dangerouslySetInnerHTML={{ __html: html }}
