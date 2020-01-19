@@ -13,14 +13,15 @@ const IndexPage = ({data}) => {
 
 return <Layout>
     <SEO title="Home"/>
-    <h3 sx={{textAlign: "center", my: 5}}> WELCOME </h3>
-    <div  sx={{width: "80%",maxWidth: "container", margin: "0 auto",
+    {/* <h3 sx={{textAlign: "center", my: 5}}> WELCOME </h3> */}
+    <div  sx={{width: "100%",maxWidth: "container", margin: "0 auto",
         borderBottom: "1px solid orange",
-        paddingBottom: "30px"
+        paddingBottom: "30px",
+        mt: "3"
       }}>
       <Carousel images = {sliderImages.nodes}/>
     </div>
-    <div  sx={{width: "80%",maxWidth: "container", margin: "0 auto",
+    <div  sx={{maxWidth: "container", margin: "0 auto",
           borderBottom: "1px solid orange",
           py: "30px",
         }}>
@@ -33,7 +34,7 @@ return <Layout>
 
 const BlogPosts = ({posts}) => {
   console.log(posts)
-  return <div  sx={{width: "80%",maxWidth: "container", margin: "0 auto",
+  return <div  sx={{maxWidth: "container", margin: "0 auto",
         borderBottom: "1px solid orange",
         py: "30px"
       }}>

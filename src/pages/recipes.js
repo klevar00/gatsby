@@ -14,7 +14,7 @@ const RecipesPage = ({data}) => {
 return <Layout>
   <SEO title="Recipes"/>
   <div
-    sx={{width: "80%",maxWidth: "container", margin: "0 auto",}}>
+    sx={{maxWidth: "container", margin: "0 auto",}}>
             
           <h3 sx={{textAlign: "center", my: 5}}> WELCOME </h3>
           <div  sx={{
