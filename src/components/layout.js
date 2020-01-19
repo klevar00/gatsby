@@ -4,6 +4,7 @@ import Navigation from "./navigation"
 import { useStaticQuery, graphql } from "gatsby"
 import { css, jsx, Main } from "theme-ui"
 import Footer from "../components/footer"
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const SiteContainer = props => (
   <div

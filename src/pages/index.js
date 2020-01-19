@@ -2,12 +2,10 @@
 import { jsx } from "theme-ui"
 import Layout from "../components/layout"
 import SEO from "../components/seo" 
-import { graphql, Link } from "gatsby"
+import { graphql} from "gatsby"
 import Carousel from "../components/carousel"
-import {ImageTitleText} from "../components/themeUIComponents"
-import {ImageTitle} from "../components/themeUIComponents"
-import Img from "gatsby-image"
-import { Grid, Card } from "@theme-ui/components"
+import {BlogCard} from "../components/themeUIComponents"
+import {RecipeCards} from "../components/recipeCards"
 
 const IndexPage = ({data}) => {
 
@@ -15,35 +13,23 @@ const IndexPage = ({data}) => {
 
 return <Layout>
     <SEO title="Home"/>
-    <h1 sx={{textAlign: "center"}}>Welcome</h1>
+    <h3 sx={{textAlign: "center", my: 5}}> WELCOME </h3>
     <div  sx={{width: "80%",maxWidth: "container", margin: "0 auto",
         borderBottom: "1px solid orange",
         paddingBottom: "30px"
       }}>
       <Carousel images = {sliderImages.nodes}/>
     </div>
-    <PopularRecipes recipes = {popularRecipes.nodes}/>
+    <div  sx={{width: "80%",maxWidth: "container", margin: "0 auto",
+          borderBottom: "1px solid orange",
+          py: "30px",
+        }}>
+          <h3 sx={{textAlign: "left"}}>Most popular recipes</h3>
+    <RecipeCards recipes = {popularRecipes.nodes}/> </div>
     <BlogPosts posts={blogPosts.nodes}/>
     </Layout>
 }
 
-const PopularRecipes = ({recipes}) => {
-
-  return <div  sx={{width: "80%",maxWidth: "container", margin: "0 auto",
-        borderBottom: "1px solid orange",
-        py: "30px",
-      }}>
-        <h3 sx={{textAlign: "left"}}>Most popular recipes</h3>
-         <Grid gap={[2]} columns={[1, 2 , 4 ,4]}>
-        {recipes.map( recipe => {
-        return (
-           <ImageTitle data={recipe}/>
-        )
-        })}
-        </Grid>
-
-    </div>
-}
 
 const BlogPosts = ({posts}) => {
   console.log(posts)
@@ -60,13 +46,13 @@ const BlogPosts = ({posts}) => {
           }}
         >
           {posts.map( post => (
-              <ImageTitleText key={post.id} data={post}></ImageTitleText>
+              <BlogCard key={post.id} data={post}></BlogCard>
           ))}
                    {posts.map( post => (
-              <ImageTitleText key={post.id} data={post}></ImageTitleText>
+              <BlogCard key={post.id} data={post}></BlogCard>
           ))}
                    {posts.map( post => (
-              <ImageTitleText key={post.id} data={post}></ImageTitleText>
+              <BlogCard key={post.id} data={post}></BlogCard>
           ))}
         </div>
     </div>
@@ -83,7 +69,7 @@ export const query = graphql`
           img {
             childImageSharp {
               fluid {
-                ...GatsbyImageSharpFluid
+                src
               }
             }
           }
