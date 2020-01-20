@@ -4,6 +4,7 @@ import { graphql } from "gatsby"
 import Img from "gatsby-image"
 import Layout from "../../components/layout"
 import {Container,Row,Col} from 'react-bootstrap'
+import { Card, Grid } from '@theme-ui/components'
 
 export default function Template({ data,}) {
   const { markdownRemark } = data
@@ -20,41 +21,12 @@ export default function Template({ data,}) {
             </div>
           </div> */}
 
-      <Container fluid>
-        <Row>
-          <Col>
-          
-            <h3 sx={{textAlign: "center", mt: 3, mb: 5}}>{frontmatter.title}</h3>
-          
-          
-          </Col>
-        </Row>
-        {/* <Row sx={{my: 5}}>
-          <Col>1 of 3</Col>
-          <Col xs={6}>2 of 3 (wider)</Col>
-          <Col>3 of 3</Col>
-        </Row> */}
-          <Row>
-    <Col xs={12} md={8}>
-    <div
-                className="blog-post-content"
-                dangerouslySetInnerHTML={{ __html: html }} />
-    </Col>
-    <Col xs={6} md={4} sx={{backgroundColor: "red"}}>
-    <Img 
-              sx={{ m: 0 }}
-                // fixed={img.childImageSharp.fixed}
-                // fluid={img.childImageSharp.fluid}
+      <div sx={{ margin: "0 auto"}}>
+        <h3 sx={{textAlign: "center", my: "5"}} > Eat good, feel good! </h3>
+        <HorizontalCard data={frontmatter} ></HorizontalCard>
 
-                fluid={{ ...img.childImageSharp.fluid, aspectRatio: 21 / 10 }}
-              
-              />
-    </Col>
-  </Row>
-      </Container>
-
-      <p sx={{my: 10}}> {recipe} </p>
-
+        <p sx={{my: 10}}> {recipe} </p>
+      </div>
     </Layout>
 
 } 
@@ -78,3 +50,26 @@ export const pageQuery = graphql`
     }
   }
 `
+
+const HorizontalCard = ({data}) => {
+
+  const {img, title} = data
+
+  console.log({img})
+  return <Grid gap={[1]} columns={[1, 1, 2, 2]}  sx={{mb: 5}} >
+         <div sx={{ mx: "1em", width: "80%", m: 100}}>
+            <h3>{title}</h3>
+             <p>30 min</p>             
+         </div>
+         
+          <Img 
+            sx={{ m: 3 }}
+              // fixed={img.childImageSharp.fixed}
+              // fluid={img.childImageSharp.fluid}
+
+              fluid={{ ...img.childImageSharp.fluid, aspectRatio: 21 / 10 }}
+            
+            />
+
+    </Grid>
+}
