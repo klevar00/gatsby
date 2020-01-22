@@ -3,7 +3,7 @@ import { graphql } from "gatsby"
 import Layout from "../../components/layout"
 
 export default function Template({ data }) {
-  const { markdownRemark } = data
+  //const { markdownRemark } = data
 
   return <Layout>
               {/* <h1>{markdownRemark.frontmatter.title}</h1>

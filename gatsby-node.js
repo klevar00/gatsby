@@ -9,7 +9,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   const result = await graphql(`
     {
       blogPosts: allMarkdownRemark(
-        filter: {fileAbsolutePath: {regex: "//markdown-pages/blog-posts/"}},
+        filter: { fileAbsolutePath: { regex: "//markdown-pages/blog-posts/" } }
         sort: { order: DESC, fields: [frontmatter___date] }
         limit: 1000
       ) {
@@ -23,7 +23,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
       }
 
       recipes: allMarkdownRemark(
-        filter: {fileAbsolutePath: {regex: "//markdown-pages/recipes/"}},
+        filter: { fileAbsolutePath: { regex: "//markdown-pages/recipes/" } }
         sort: { order: DESC, fields: [frontmatter___date] }
         limit: 1000
       ) {
@@ -35,7 +35,6 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
           }
         }
       }
-
     }
   `)
 
@@ -53,6 +52,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     })
   })
   result.data.recipes.edges.forEach(({ node }) => {
+    console.log("------------PATH: ", node.frontmatter.path)
     createPage({
       path: node.frontmatter.path,
       component: recipeTemplate,
@@ -63,9 +63,9 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
 // exports.createPages = async ({ actions, graphql, reporter }) => {
 //     const { createPage } = actions
-  
+
 //     const recipeTemplate = path.resolve(`src/pages/templates/recipeTemplate.js`)
-  
+
 //     const result = await graphql(`
 //       {
 //         allMarkdownRemark(
@@ -83,13 +83,13 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 //         }
 //       }
 //     `)
-  
+
 //     // Handle errors
 //     if (result.errors) {
 //       reporter.panicOnBuild(`Error while running GraphQL query.`)
 //       return
 //     }
-  
+
 //     result.data.allMarkdownRemark.edges.forEach(({ node }) => {
 //       createPage({
 //         path: node.frontmatter.path,

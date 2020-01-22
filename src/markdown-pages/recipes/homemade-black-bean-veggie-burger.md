@@ -1,5 +1,5 @@
 ---
-path: "/recipes/cabbage-jambalaya5"
+path: "/recipes/5"
 title: "Cabbage Jambalaya"
 recipe: "Season both sides of pork chops with paprika, salt, and pepper.
 Heat a large skillet over medium-high heat; add 2 tablespoons butter. Sear pork chops until golden brown and no longer pink in the center, 2 to 4 minutes per side. Remove pork chops from the skillet and set aside.
@@ -8,9 +8,10 @@ Add flour to the skillet, stirring to remove any lumps. Slowly add beef broth, w
 Return pork chops to the skillet and cook until heated through, about 1 minute. Serve hot."
 img: ./homemade-black-bean-veggie-burger.jpg
 ---
-* 1 cup warm water
-* 1 (.25 ounce) package active dry yeast
-* 1 teaspoon white sugar
-* 3 teaspoons olive oil, divided
-* 1 teaspoon kosher salt
-* 2 1/2 cups bread flour
+
+- 1 cup warm water
+- 1 (.25 ounce) package active dry yeast
+- 1 teaspoon white sugar
+- 3 teaspoons olive oil, divided
+- 1 teaspoon kosher salt
+- 2 1/2 cups bread flour
