@@ -5,6 +5,9 @@ import Img from "gatsby-image"
 import Layout from "../../components/layout"
 import { Container, Row, Col } from "react-bootstrap"
 import { Card, Grid } from "@theme-ui/components"
+import { useRef } from "react"
+import { useEffect } from "react"
+import { useWindowSize } from "../../hooks/index"
 
 export default function Template({ data }) {
   console.log("---------- DATA:", data)
@@ -21,17 +24,46 @@ export default function Template({ data }) {
 
   return (
     <Layout>
-      {/* <div className="blog-post-container">
-            <div className="blog-post">
-              <h1>{frontmatter.title}</h1>
-            </div>
-          </div> */}
+      <div
+        sx={{
+          width: "100%",
+          maxWidth: "container",
+          margin: "0 auto",
+          borderBottom: "1px solid orange",
+          paddingBottom: "30px",
+          mt: "3",
+        }}
+      >
+        <h3 sx={{ textAlign: "center" }}> {frontmatter.title} </h3>
+        {/* <HorizontalCard data={frontmatter}></HorizontalCard> */}
 
-      <div sx={{ margin: "0 auto" }}>
-        <h3 sx={{ textAlign: "center", my: "5" }}> Eat good, feel good! </h3>
-        <HorizontalCard data={frontmatter}></HorizontalCard>
+        <Img
+          // fixed={img.childImageSharp.fixed}
+          // fluid={img.childImageSharp.fluid}
 
-        <p sx={{ my: 10 }}> {recipe} </p>
+          sx={{
+            my: 5,
+            mx: "auto",
+            maxWidth: ["100%", "80%"],
+          }}
+          fluid={{ ...img.childImageSharp.fluid, aspectRatio: 21 / 10 }}
+        />
+
+        <Grid gap={4} columns={[1, 2]}>
+          <div
+            sx={{
+              order: 1,
+            }}
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
+          <p
+            sx={{
+              order: 2,
+            }}
+          >
+            {frontmatter.recipe}
+          </p>
+        </Grid>
       </div>
     </Layout>
   )

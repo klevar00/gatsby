@@ -9,9 +9,18 @@ Return pork chops to the skillet and cook until heated through, about 1 minute. 
 img: ./homemade-black-bean-veggie-burger.jpg
 ---
 
-- 1 cup warm water
-- 1 (.25 ounce) package active dry yeast
-- 1 teaspoon white sugar
-- 3 teaspoons olive oil, divided
-- 1 teaspoon kosher salt
-- 2 1/2 cups bread flour
+- For the shortcrust pastry
+  350g plain flour
+  20g caster sugar
+  0.25 tsp salt
+  200g cold butter, diced
+  1 large egg, lightly beaten with 2 tbsp cold water
+
+-For the filling
+2 tbsp freshly squeezed lemon juice
+1.35kg baking apples
+150g caster sugar, plus more for sprinkling on the pie
+55g unsalted butter
+0.25 tsp ground cinnamon
+Generous pinch of ground nutmeg
+1 large egg, lightly beaten
