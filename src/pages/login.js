@@ -64,7 +64,7 @@ const LoginPage = () => {
           <Form.Text className="text-muted" sx={{ my: "2" }}>
             Forgot your password?
           </Form.Text>
-          <Button variant="primary" type="submit" sx={{ alignItems: "center" }}>
+          <Button variant="primary" type="submit" sx={{ mx: "50%" }}>
             Submit
           </Button>
         </Form>

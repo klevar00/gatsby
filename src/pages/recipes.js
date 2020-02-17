@@ -3,99 +3,116 @@ import { jsx } from "theme-ui"
 import Layout from "../components/layout"
 import { graphql } from "gatsby"
 import SEO from "../components/seo"
-import {ThreeRecipeCardsTabs} from "../components/themeUIComponents"
-import {RecipeCard} from "../components/themeUIComponents"
-import {DropdownButton as DropdownButtonBS ,Dropdown as DropdownBS} from 'react-bootstrap'
+import { ThreeRecipeCardsTabs } from "../components/themeUIComponents"
+import { RecipeCard } from "../components/themeUIComponents"
+import {
+  DropdownButton as DropdownButtonBS,
+  Dropdown as DropdownBS,
+} from "react-bootstrap"
 
-const RecipesPage = ({data}) => {
+import { Form, Col, InputGroup } from "react-bootstrap"
 
-  const {sliderImages, popularRecipes, blogPosts} = data
+const RecipesPage = ({ data }) => {
+  const { sliderImages, popularRecipes, blogPosts } = data
 
-return <Layout>
-  <SEO title="Recipes"/>
-  <div
-    sx={{maxWidth: "container", margin: "0 auto",}}>
-            
-          <h3 sx={{textAlign: "center", my: 5}}> WELCOME </h3>
-          <div  sx={{
-                  borderBottom: "1px solid orange",
-                  paddingBottom: "30px",
-                }}>
-          <ThreeRecipeCardsTabs data={popularRecipes}></ThreeRecipeCardsTabs> </div>
+  return (
+    <Layout>
+      <SEO title="Recipes" />
+      <div sx={{ maxWidth: "container", margin: "0 auto" }}>
+        <h2 sx={{ textAlign: "center", my: 3 }}> WELCOME </h2>
+        <div
+          sx={{
+            paddingBottom: "30px",
+          }}
+        >
+          <ThreeRecipeCardsTabs data={popularRecipes}></ThreeRecipeCardsTabs>{" "}
+        </div>
 
+        <div
+          sx={{
+            paddingBottom: "30px",
+          }}
+        >
+          <h2>All recipes</h2>
           <div
             sx={{
-              borderBottom: "1px solid orange",
-              paddingBottom: "30px",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
-
-            <h3>All recipes</h3>
-            <div 
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center"
-
-              }}
-            >
-              <Dropdown></Dropdown>
-              <h3>search</h3>
-            </div>
-
+            <Dropdown sx={{ backgroundColor: "white" }}></Dropdown>
+            <Form.Row>
+              <Form.Group as={Col}>
+                <InputGroup>
+                  <InputGroup.Prepend>
+                    <InputGroup.Text>
+                      <span>lal</span>
+                    </InputGroup.Text>
+                  </InputGroup.Prepend>
+                  <Form.Control type="text" placeholder="Search here.." />
+                </InputGroup>
+              </Form.Group>
+            </Form.Row>
           </div>
+        </div>
 
-          <div 
-          // sx={{borderStyle: "solid", width: "80%", margin: "0 auto", height: "100vh", borderColor: "blue",borderWidth: "4"}}
-            sx={{border: "1px solid orange", width: "95%", margin: "0 auto"}}
-          > 
-            <BlogPosts posts={popularRecipes.nodes} ></BlogPosts>
-
-          </div>
-  </div>
-
-</Layout>
-
+        <div>
+          <BlogPosts posts={popularRecipes.nodes}></BlogPosts>
+        </div>
+      </div>
+    </Layout>
+  )
 }
 
 export default RecipesPage
 
-const BlogPosts = ({posts}) => {
+const BlogPosts = ({ posts }) => {
   console.log(posts)
-  return <div  sx={{width: "80%",maxWidth: "container", margin: "0 auto",
-        borderBottom: "1px solid orange",
-        py: "30px"
-      }}>
-        <div 
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-around"
-          }}
-        >
-          {posts.map( post => (
-              <RecipeCard key={post.id} data={post}></RecipeCard>
-          ))}
-        </div>
+  return (
+    <div
+      sx={{
+        width: "80%",
+        maxWidth: "container",
+        margin: "0 auto",
+        py: "30px",
+      }}
+    >
+      <div
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-around",
+        }}
+      >
+        {posts.map(post => (
+          <RecipeCard key={post.id} data={post}></RecipeCard>
+        ))}
+      </div>
     </div>
+  )
 }
-
 
 const Dropdown = () => {
-
-  return <DropdownButtonBS id="dropdown-item-button" title="Categories">
-  <DropdownBS.Item as="button">Veggies</DropdownBS.Item>
-  <DropdownBS.Item as="button">Meat</DropdownBS.Item>
-  <DropdownBS.Item as="button">Something else</DropdownBS.Item>
-  </DropdownButtonBS>
-
+  return (
+    <DropdownButtonBS
+      variant="outline-warning"
+      id="dropdown-item-button"
+      title="Categories"
+    >
+      <DropdownBS.Item as="button">Veggies</DropdownBS.Item>
+      <DropdownBS.Item as="button">Meat</DropdownBS.Item>
+      <DropdownBS.Item as="button">Something else</DropdownBS.Item>
+    </DropdownButtonBS>
+  )
 }
-
 
 export const query = graphql`
   {
-    sliderImages: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "//markdown-pages/recipes/"}}) {
+    sliderImages: allMarkdownRemark(
+      filter: { fileAbsolutePath: { regex: "//markdown-pages/recipes/" } }
+    ) {
       nodes {
         id
         frontmatter {
@@ -109,9 +126,11 @@ export const query = graphql`
         }
       }
     }
-    
 
-    popularRecipes: allMarkdownRemark(limit: 4, filter: {fileAbsolutePath: {regex: "//markdown-pages/recipes/"}}) {
+    popularRecipes: allMarkdownRemark(
+      limit: 4
+      filter: { fileAbsolutePath: { regex: "//markdown-pages/recipes/" } }
+    ) {
       nodes {
         id
         frontmatter {
@@ -129,8 +148,10 @@ export const query = graphql`
       }
     }
 
-
-    blogPosts: allMarkdownRemark(limit: 4, filter: {fileAbsolutePath: {regex: "//markdown-pages/blog-posts/"}}) {
+    blogPosts: allMarkdownRemark(
+      limit: 4
+      filter: { fileAbsolutePath: { regex: "//markdown-pages/blog-posts/" } }
+    ) {
       nodes {
         id
         html
@@ -149,6 +170,5 @@ export const query = graphql`
         }
       }
     }
-
   }
 `

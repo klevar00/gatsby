@@ -1,5 +1,11 @@
 import { tailwind } from "@theme-ui/presets"
 
+/* 
+#FFC551 //orange
+#8930B3 //purple
+#6BFFB8 // light green
+*/
+
 const theme = {
   ...tailwind,
   sizes: {
@@ -46,18 +52,17 @@ const theme = {
       padding: 2,
       borderRadius: 2,
       m: 2,
-      boxShadow: theme => `0 0 8px ${theme.colors.indigo[2]}`,
+      boxShadow: theme => `0 0 8px ${theme.colors.indigo[3]}`,
       "&:hover": {
-        boxShadow: theme => `0 0 8px ${theme.colors.orange[2]}`,
+        boxShadow: theme => `0 0 8px #FFC551`,
       },
     },
   },
   shadows: {
-    header: theme =>
-      `0 4px 6px ${theme.colors.orange[1]}, 0 0 1px rgba(1,0,0,.1)`,
+    header: theme => `0 4px 6px #FFC551, 0 0 1px rgba(1,0,0,.1)`,
   },
   borders: {
-    header: theme => `2px solid ${theme.colors.orange[1]}`,
+    header: theme => `2px solid #FFC551`,
   },
 }
 
