@@ -102,7 +102,7 @@ const Dropdown = () => {
     >
       <DropdownBS.Item as="button">Veggies</DropdownBS.Item>
       <DropdownBS.Item as="button">Meat</DropdownBS.Item>
-      <DropdownBS.Item as="button">Something else</DropdownBS.Item>
+      <DropdownBS.Item as="button">Healthy</DropdownBS.Item>
     </DropdownButtonBS>
   )
 }

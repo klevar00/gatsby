@@ -33,11 +33,11 @@ img: ./gourmet_salmon_dinner.jpg
     >
 - SAUTÉED VEGETABLES
 
-- olive oil, to taste
-- 1 cup porcini mushroom (75 g), trimmed and quartered
-- 1 bunch asparagus, ends trimmed
-- salt, to taste
-- pepper, to taste
+  - olive oil, to taste
+  - 1 cup porcini mushroom (75 g), trimmed and quartered
+  - 1 bunch asparagus, ends trimmed
+  - salt, to taste
+  - pepper, to taste
 
   >
 
