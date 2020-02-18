@@ -14,7 +14,7 @@ const SiteContainer = props => (
       display: "flex",
       flexDirection: "column",
       margin: "0 auto",
-      width: "70%",
+      width: ["90%", "70%"],
       pb: "2em",
       minHeight: "85vh",
     }}
