@@ -26,11 +26,12 @@ const Footer = () => {
         >
           <h2
             sx={{
+              textAlign: "center",
               fontWeight: "normal",
-              color: "black"
+              color: "black",
             }}
           >
-           {currentYear}
+            {currentYear}
           </h2>
         </div>
       </Container>

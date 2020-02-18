@@ -63,12 +63,6 @@ const BlogPosts = ({ posts }) => {
         {posts.map(post => (
           <BlogCard key={post.id} data={post}></BlogCard>
         ))}
-        {posts.map(post => (
-          <BlogCard key={post.id} data={post}></BlogCard>
-        ))}
-        {posts.map(post => (
-          <BlogCard key={post.id} data={post}></BlogCard>
-        ))}
       </div>
     </div>
   )
@@ -91,6 +85,8 @@ export const query = graphql`
               }
             }
           }
+          title
+          path
         }
       }
     }
@@ -133,6 +129,7 @@ export const query = graphql`
               }
             }
           }
+          path
           title
         }
       }

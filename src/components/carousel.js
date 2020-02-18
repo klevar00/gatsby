@@ -38,17 +38,19 @@ const Carousel = ({ images }) => {
     >
       {images.map(image => (
         <CarouselBS.Item>
-          <Img
-            key={image.id}
-            fluid={{
-              ...image.frontmatter.img.childImageSharp.fluid,
-              aspectRatio: 21 / 7,
-            }}
-          />
-          <CarouselBS.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </CarouselBS.Caption>
+          <a href={image.path}>
+            <Img
+              key={image.id}
+              fluid={{
+                ...image.frontmatter.img.childImageSharp.fluid,
+                aspectRatio: 21 / 7,
+              }}
+            />
+
+            <CarouselBS.Caption>
+              <h3>{image.frontmatter.title}</h3>
+            </CarouselBS.Caption>
+          </a>
         </CarouselBS.Item>
       ))}
     </CarouselBS>

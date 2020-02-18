@@ -10,24 +10,27 @@ import { RecipeButton } from "../components/recipeButton"
 
 export const RecipeCard = ({ data }) => {
   const { id, frontmatter } = data
-  const { img, title, recipe } = frontmatter
+  const { img, title, recipe, path } = frontmatter
 
   return (
     <Card sx={{ mb: 3 }}>
       <Grid gap={[1]} columns={[1, 1, 2, 2]}>
-        <Img
-          sx={{ m: 3 }}
-          // fixed={img.childImageSharp.fixed}
-          // fluid={img.childImageSharp.fluid}
-
-          fluid={{ ...img.childImageSharp.fluid, aspectRatio: 21 / 10 }}
-        />
+        <a href={path}>
+          <Img
+            sx={{ m: 3 }}
+            fluid={{ ...img.childImageSharp.fluid, aspectRatio: 21 / 10 }}
+          />
+        </a>
         <div sx={{ mx: "1em", width: "80%", my: ["10px", "auto"] }}>
-          <h3>{title}</h3>
+          <h3>
+            <b>{title}</b>
+          </h3>
           <p className={style.blockWithText} sx={{ my: "7%" }}>
             {recipe}
           </p>
-          <RecipeButton sx={{ float: "right" }}>See more</RecipeButton>
+          <a href={path}>
+            <RecipeButton sx={{ float: "right" }}>See more</RecipeButton>
+          </a>
         </div>
       </Grid>
     </Card>
@@ -36,27 +39,32 @@ export const RecipeCard = ({ data }) => {
 
 export const BlogCard = ({ data }) => {
   const { html, frontmatter } = data
-  const { img, title } = frontmatter
+  const { img, title, path } = frontmatter
 
   console.log({ img })
   return (
     <Card sx={{ mb: 3 }}>
       <Grid gap={[1]} columns={[1, 1, 2, 2]}>
-        <Img
-          sx={{ m: 3 }}
-          fluid={{ ...img.childImageSharp.fluid, aspectRatio: 21 / 10 }}
-        />
+        <a href={path}>
+          <Img
+            sx={{ m: 3 }}
+            fluid={{ ...img.childImageSharp.fluid, aspectRatio: 21 / 10 }}
+          />
+        </a>
         <div sx={{ mx: "1em", width: "80%", my: ["10px", "auto"] }}>
-          <h3>Title</h3>
-          <p className={style.blockWithText} sx={{ my: "7%" }}>
-            Anyone with a sweet tooth and a tolerance for gluten loves a good
-            cinnamon roll. Whether you’re trying to impress someone special or
-            just stuff your face, there’s nothing better than baking them at
-            home. The fact that Pillsbury packages them in a can makes them
-            pretty much the best non-alcoholic, perishable item presented in
-            that format.
-          </p>
-          <RecipeButton sx={{ float: "right" }}>See more</RecipeButton>
+          <h3>
+            <b>{title}</b>
+          </h3>
+          <div
+            className={style.blockWithText}
+            sx={{
+              my: "7%",
+            }}
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
+          <a href={path}>
+            <RecipeButton sx={{ float: "right" }}>See more</RecipeButton>
+          </a>
         </div>
       </Grid>
     </Card>
@@ -87,7 +95,7 @@ export const ImageTitle = ({ data }) => {
               color: "black",
             }}
           >
-            {frontmatter.title}
+            <b>{frontmatter.title}</b>
           </h3>
         </div>
       </Card>
