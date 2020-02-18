@@ -1,234 +1,233 @@
 /** @jsx jsx */
 import { jsx, useThemeUI, Header } from "theme-ui"
 import { useRef, useState } from "react"
-import {Link} from "gatsby"
+import { Link } from "gatsby"
 
 import Container from "./container"
 import { useResponsiveMenu, useOnOutsideEvent } from "../hooks"
 
-import logo from "../assets/logo.svg"
+import logo from "../images/gatsby-icon.png"
 import more from "../assets/more.svg"
 
-
 const LogoLink = () => (
-    <Link to="/" sx={{ display: "flex", alignItems: "center" }}>
-      {/* <img
-        src={logo}
-        sx={{
-          height: "logo",
-          width: "auto",
-        }}
-      /> */}
-      <h3>LOGO</h3>
-    </Link>
-  )
+  <Link to="/" sx={{ display: "flex", alignItems: "center" }}>
+    <img
+      src={logo}
+      sx={{
+        height: "logo",
+        width: "auto",
+      }}
+    />
+    {/* <h3>LOGO</h3> */}
+  </Link>
+)
 
-  const NavLink = ({ ...prop }) => (
-    <Link
+const NavLink = ({ ...prop }) => (
+  <Link
+    {...prop}
+    sx={{
+      fontFamily: "Rosarivo",
+      display: "inline-block",
+      color: theme => `${theme.colors.primary}`,
+      textDecoration: "none",
+      textTransform: "uppercase",
+      fontWeight: "light",
+      whiteSpace: "nowrap",
+      letterSpacing: "tight",
+      transition: "all 0.25s linear",
+    }}
+  />
+)
+
+const MoreButton = ({ onClick, width = 50 }) => (
+  <div
+    sx={{
+      display: "flex",
+      flexShrink: 0,
+      alignItems: "center",
+      width,
+      px: 3,
+      cursor: "pointer",
+      "&:hover": {
+        backgroundColor: "indigo.2",
+      },
+    }}
+    onClick={onClick}
+  >
+    <img
+      src={more}
+      sx={{
+        stroke: "red",
+        height: theme =>
+          `calc(calc(${theme.sizes.navBar} - 2 * ${theme.sizes.navLinkBorder})/4)`,
+        width: "auto",
+      }}
+    />
+  </div>
+)
+
+const VisibleNavLink = ({ ...prop }) => {
+  const { theme } = useThemeUI()
+
+  return (
+    <NavLink
       {...prop}
       sx={{
-        display: "inline-block",
-        color: theme => `${theme.colors.primary}`,
-        textDecoration: "none",
-        textTransform: "uppercase",
-        fontWeight: "light",
-        whiteSpace: "nowrap",
-        letterSpacing: "tight",
-        transition: "all 0.25s linear",
-      }}
-    />
-  )
-
-  const MoreButton = ({ onClick, width = 50 }) => (
-    <div
-      sx={{
-        display: "flex",
-        flexShrink: 0,
-        alignItems: "center",
-        width,
-        px: 3,
-        cursor: "pointer",
+        mx: 2,
+        mb: 1,
+        px: 2,
+        lineHeight: theme =>
+          `calc(${theme.sizes.navBar} - 2 * ${theme.sizes.navLinkBorder})`,
+        borderTop: theme => `${theme.sizes.navLinkBorder} solid transparent`,
+        borderBottom: theme => `${theme.sizes.navLinkBorder} solid transparent`,
         "&:hover": {
-          backgroundColor: "indigo.2",
+          color: theme => `${theme.colors.primary}`,
+          borderBottom: theme => `${theme.sizes.navLinkBorder} solid #FFC551`,
         },
       }}
-      onClick={onClick}
-    >
-      <img
-        src={more}
-        sx={{
-          stroke: "red",
-          height: theme =>
-            `calc(calc(${theme.sizes.navBar} - 2 * ${theme.sizes.navLinkBorder})/4)`,
-          width: "auto",
-        }}
-      />
-    </div>
-  )
-
-  const VisibleNavLink = ({ ...prop }) => {
-    const { theme } = useThemeUI()
-  
-    return (
-      <NavLink
-        {...prop}
-        sx={{
-          mx: 2,
-          px: 2,
-          lineHeight: theme =>
-            `calc(${theme.sizes.navBar} - 2 * ${theme.sizes.navLinkBorder})`,
-          borderTop: theme => `${theme.sizes.navLinkBorder} solid transparent`,
-          borderBottom: theme => `${theme.sizes.navLinkBorder} solid transparent`,
-          "&:hover": {
-            color: theme => `${theme.colors.primary}`,
-            borderBottom: theme =>
-              `${theme.sizes.navLinkBorder} solid ${theme.colors.orange[3]}`,
-          },
-        }}
-        activeStyle={{
-          color: theme.colors.primaryHover,
-          borderBottom: `${theme.sizes.navLinkBorder} solid ${theme.colors.orange[3]}`,
-        }}
-      />
-    )
-  }
-
-  const HiddenNavLink = ({ ...prop }) => {
-    const { theme } = useThemeUI()
-  
-    return (
-      <NavLink
-        {...prop}
-        sx={{
-          m: 2,
-          px: 3,
-          py: 2,
-          borderLeft: theme => `${theme.sizes.navLinkBorder} solid transparent`,
-          "&:hover": {
-            color: theme => `${theme.colors.primary}`,
-            borderLeft: theme =>
-              `${theme.sizes.navLinkBorder} solid ${theme.colors.primaryHover}`,
-          },
-        }}
-        activeStyle={{
-          color: theme.colors.primaryHover,
-          borderLeft: `${theme.sizes.navLinkBorder} solid ${theme.colors.primaryHover}`,
-        }}
-      />
-    )
-  }
-
-  const Triangle = () => (
-    <div
-      sx={{
-        position: "absolute",
-        top: "-12px",
-        right: "15px",
-        width: "22px",
-        height: "22px",
-        lineHeight: 0,
-        fontSize: 0,
-        border: theme => theme.borders.header,
-        borderWidth: "0 0 1px 1px",
-        transform: "rotate(135deg)",
-        backgroundColor: "white",
+      activeStyle={{
+        color: theme.colors.primaryHover,
       }}
     />
   )
+}
 
-  const VisibleItems = ({ visibleItems }) =>
+const HiddenNavLink = ({ ...prop }) => {
+  const { theme } = useThemeUI()
+
+  return (
+    <NavLink
+      {...prop}
+      sx={{
+        m: 2,
+        px: 3,
+        py: 2,
+        borderLeft: theme => `${theme.sizes.navLinkBorder} solid transparent`,
+        "&:hover": {
+          color: theme => `${theme.colors.primary}`,
+          borderLeft: theme =>
+            `${theme.sizes.navLinkBorder} solid ${theme.colors.primaryHover}`,
+        },
+      }}
+      activeStyle={{
+        color: theme.colors.primaryHover,
+        borderLeft: `${theme.sizes.navLinkBorder} solid ${theme.colors.primaryHover}`,
+      }}
+    />
+  )
+}
+
+const Triangle = () => (
+  <div
+    sx={{
+      position: "absolute",
+      top: "-12px",
+      right: "15px",
+      width: "22px",
+      height: "22px",
+      lineHeight: 0,
+      fontSize: 0,
+      border: theme => theme.borders.header,
+      borderWidth: "0 0 1px 1px",
+      transform: "rotate(135deg)",
+      backgroundColor: "white",
+    }}
+  />
+)
+
+const VisibleItems = ({ visibleItems }) =>
   visibleItems.map(menuItem => (
     <VisibleNavLink key={menuItem.path} to={menuItem.path}>
       {menuItem.text}
     </VisibleNavLink>
   ))
 
-  const HiddenItems = ({
-    menu,
-    handleOutsideClick,
-    minWidth = 120,
-    spaceForTriangle = 16,
-    zIndex = 999,
-  }) => {
-    const { innerBorderRef } = useOnOutsideEvent(handleOutsideClick)
-    return (
-      <div
-        ref={innerBorderRef}
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          position: "absolute",
-          top: menu.offset + spaceForTriangle,
-          p: 2,
-          zIndex,
-          minWidth,
-          backgroundColor: "white",
-          border: theme => theme.borders.header,
-          boxShadow: theme => theme.shadows.header,
-        }}
-      >
-        <Triangle />
-        {menu.hiddenItems.map(menuItem => (
-          <HiddenNavLink key={menuItem.path} to={menuItem.path}>
-            {menuItem.text}
-          </HiddenNavLink>
+const HiddenItems = ({
+  menu,
+  handleOutsideClick,
+  minWidth = 120,
+  spaceForTriangle = 16,
+  zIndex = 999,
+}) => {
+  const { innerBorderRef } = useOnOutsideEvent(handleOutsideClick)
+  return (
+    <div
+      ref={innerBorderRef}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        position: "absolute",
+        top: menu.offset + spaceForTriangle,
+        p: 2,
+        zIndex,
+        minWidth,
+        backgroundColor: "white",
+        border: theme => theme.borders.header,
+        boxShadow: theme => theme.shadows.header,
+      }}
+    >
+      <Triangle />
+      {menu.hiddenItems.map(menuItem => (
+        <HiddenNavLink key={menuItem.path} to={menuItem.path}>
+          {menuItem.text}
+        </HiddenNavLink>
+      ))}
+    </div>
+  )
+}
+
+const Nav = ({ menuItems }) => {
+  const containerRef = useRef(null)
+  const [open, setOpen] = useState(false)
+  const { menu } = useResponsiveMenu({ containerRef, menuItems })
+
+  const isHiddenEmpty = menu.hiddenItems.length === 0
+
+  const handleMoreClick = () => setOpen(true)
+  const handleOutsideClick = () => setOpen(false)
+
+  return (
+    <nav
+      ref={containerRef}
+      sx={{
+        display: "flex",
+        boxSizing: "border-box",
+        justifyContent: "flex-end",
+        flex: "auto",
+        ml: [3, 4],
+        overflowX: "auto",
+      }}
+    >
+      <VisibleItems visibleItems={menu.visibleItems} />
+      {!isHiddenEmpty && <MoreButton onClick={handleMoreClick} />}
+      {!isHiddenEmpty &&
+        (open && (
+          <HiddenItems menu={menu} handleOutsideClick={handleOutsideClick} />
         ))}
-      </div>
-    )
-  }
+    </nav>
+  )
+}
 
-  const Nav = ({ menuItems }) => {
-    const containerRef = useRef(null)
-    const [open, setOpen] = useState(false)
-    const { menu } = useResponsiveMenu({ containerRef, menuItems })
-  
-    const isHiddenEmpty = menu.hiddenItems.length === 0
-  
-    const handleMoreClick = () => setOpen(true)
-    const handleOutsideClick = () => setOpen(false)
-  
-    return (
-      <nav
-        ref={containerRef}
+const Navigation = ({ menuItems }) => {
+  return (
+    <Header
+      sx={{
+        borderBottom: theme => theme.borders.header,
+        position: "relative",
+      }}
+    >
+      <Container
         sx={{
           display: "flex",
-          boxSizing: "border-box",
-          justifyContent: "flex-end",
-          flex: "auto",
-          ml: [3, 4],
-          overflowX: "auto",
+          justifyContent: "space-between",
+          alignContent: "center",
         }}
       >
-        <VisibleItems visibleItems={menu.visibleItems} />
-        {!isHiddenEmpty && <MoreButton onClick={handleMoreClick} />}  
-        {!isHiddenEmpty &&
-          (open && (
-            <HiddenItems menu={menu} handleOutsideClick={handleOutsideClick} />
-          ))}
-      </nav>
-    )
-  }
-
-  const Navigation = ({ menuItems }) => {
-    return (
-      <Header
-        sx={{
-          borderBottom: theme => theme.borders.header,
-          position: "relative",
-        }}
-      >
-        <Container
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignContent: "center",
-          }}
-        >
-          <LogoLink />
-          <Nav menuItems={menuItems} />
-        </Container>
-      </Header>
-    )
-  }
+        <LogoLink />
+        <Nav menuItems={menuItems} />
+      </Container>
+    </Header>
+  )
+}
 
 export default Navigation

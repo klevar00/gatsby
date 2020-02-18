@@ -6,7 +6,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { Flex } from "theme-ui"
 import Form from "react-bootstrap/Form"
-import Button from "react-bootstrap/Button"
+import { RecipeButton } from "../components/recipeButton"
 
 const LoginPage = () => {
   return (
@@ -14,10 +14,9 @@ const LoginPage = () => {
       <SEO title="Login" />
       <div
         sx={{
-          width: "70%",
+          width: ["90%", "70%"],
           maxWidth: "container",
           margin: "0 auto",
-          paddingBottom: "30px",
           mt: "4",
         }}
       >
@@ -28,7 +27,8 @@ const LoginPage = () => {
             justifyContent: "space-evenly",
             alignItems: "baseline",
             width: "80%",
-            margin: "0 auto",
+            mt: 5,
+            mx: "auto",
           }}
         >
           <h3
@@ -45,28 +45,40 @@ const LoginPage = () => {
               width: "50%",
               textAlign: "center",
               borderLeft: "1px solid orange",
+              "&:hover": {
+                color: "#FFC551",
+                cursor: "pointer",
+              },
             }}
           >
             Register
           </h3>
         </div>
 
-        <Form sx={{ width: "50%", my: "4", mx: "auto" }}>
+        <Form sx={{ width: ["90%", "90%", "90%", "60%"], mt: "4", mx: "auto" }}>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" />
+            <Form.Control required type="email" placeholder="Enter email" />
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" />
+            <Form.Control required type="password" placeholder="Password" />
           </Form.Group>
           <Form.Text className="text-muted" sx={{ my: "2" }}>
-            Forgot your password?
+            <span
+              sx={{
+                my: "2",
+                "&:hover": {
+                  color: "#FFC551",
+                  cursor: "pointer",
+                },
+              }}
+            >
+              Forgot your password?
+            </span>
           </Form.Text>
-          <Button variant="primary" type="submit" sx={{ mx: "50%" }}>
-            Submit
-          </Button>
+          <RecipeButton sx={{ mx: "40%" }}>Submit</RecipeButton>
         </Form>
       </div>
     </Layout>

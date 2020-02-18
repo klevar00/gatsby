@@ -69,7 +69,7 @@ export const ImageTitle = ({ data }) => {
   console.log(frontmatter)
   return (
     <a href={frontmatter.path}>
-      <Card key={id} sx={{ width: ["80%", "90%"], mx: "auto" }}>
+      <Card key={id} sx={{ width: ["95%", "90%"], mx: "auto" }}>
         <Img
           sx={{ m: [2, 0] }}
           key={id}
@@ -78,12 +78,12 @@ export const ImageTitle = ({ data }) => {
             aspectRatio: 21 / 15,
           }}
         />
-        <div sx={{ mt: 1, mb: 0, height: [60, 80] }}>
+        <div sx={{ mt: 1, mb: 0, height: [20, 60] }}>
           <h3
             sx={{
               textAlign: "center",
               mt: 4,
-              fontSize: "20px",
+              fontSize: "18px",
               color: "black",
             }}
           >
@@ -98,7 +98,6 @@ export const ImageTitle = ({ data }) => {
 export const ThreeRecipeCardsTabs = ({ data }) => {
   const { id, frontmatter } = data
 
-  console.log(frontmatter)
   return (
     <Tabs defaultActiveKey="home" id="uncontrolled-tab-example">
       <Tab eventKey="home" title="Daily recipes">
@@ -107,12 +106,8 @@ export const ThreeRecipeCardsTabs = ({ data }) => {
       <Tab eventKey="profile" title="Five-min recipes">
         <RecipeCards recipes={data.nodes} />
       </Tab>
-      <Tab
-        eventKey="contact"
-        title="Veggie recipes"
-        sx={{ height: "300px", bg: "red" }}
-      >
-        Cevap
+      <Tab eventKey="contact" title="Veggie recipes">
+        <RecipeCards recipes={data.nodes} />
       </Tab>
     </Tabs>
   )

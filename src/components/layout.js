@@ -14,8 +14,9 @@ const SiteContainer = props => (
       display: "flex",
       flexDirection: "column",
       margin: "0 auto",
-      width: "75%",
+      width: "70%",
       pb: "2em",
+      minHeight: "85vh",
     }}
   />
 )
@@ -41,7 +42,6 @@ const Layout = props => {
         display: "flex",
         flexDirection: "column",
         margin: "0 auto",
-        minHeight: "100vh",
       }}
     >
       <Navigation menuItems={data.site.siteMetadata.menuItems} />

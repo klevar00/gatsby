@@ -9,7 +9,7 @@ import {
   DropdownButton as DropdownButtonBS,
   Dropdown as DropdownBS,
 } from "react-bootstrap"
-
+import "font-awesome/css/font-awesome.min.css"
 import { Form, Col, InputGroup } from "react-bootstrap"
 
 const RecipesPage = ({ data }) => {
@@ -19,7 +19,7 @@ const RecipesPage = ({ data }) => {
     <Layout>
       <SEO title="Recipes" />
       <div sx={{ maxWidth: "container", margin: "0 auto" }}>
-        <h2 sx={{ textAlign: "center", my: 3 }}> WELCOME </h2>
+        <h2 sx={{ textAlign: "center", my: 4 }}> Eat good - Feel good </h2>
         <div
           sx={{
             paddingBottom: "30px",
@@ -28,11 +28,7 @@ const RecipesPage = ({ data }) => {
           <ThreeRecipeCardsTabs data={popularRecipes}></ThreeRecipeCardsTabs>{" "}
         </div>
 
-        <div
-          sx={{
-            paddingBottom: "30px",
-          }}
-        >
+        <div>
           <h2>All recipes</h2>
           <div
             sx={{
@@ -40,6 +36,9 @@ const RecipesPage = ({ data }) => {
               flexDirection: "row",
               justifyContent: "space-between",
               alignItems: "center",
+              width: "90%",
+              mt: 4,
+              mx: "auto",
             }}
           >
             <Dropdown sx={{ backgroundColor: "white" }}></Dropdown>
@@ -48,7 +47,7 @@ const RecipesPage = ({ data }) => {
                 <InputGroup>
                   <InputGroup.Prepend>
                     <InputGroup.Text>
-                      <span>lal</span>
+                      <i class="fa fa-search" aria-hidden="true"></i>
                     </InputGroup.Text>
                   </InputGroup.Prepend>
                   <Form.Control type="text" placeholder="Search here.." />

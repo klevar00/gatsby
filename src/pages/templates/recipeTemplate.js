@@ -3,11 +3,9 @@ import { jsx } from "theme-ui"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
 import Layout from "../../components/layout"
-import { Container, Row, Col } from "react-bootstrap"
 import { Card, Grid } from "@theme-ui/components"
-import { useRef } from "react"
-import { useEffect } from "react"
-import { useWindowSize } from "../../hooks/index"
+
+import { RecipeCards } from "../../components/recipeCards"
 
 export default function Template({ data }) {
   console.log("---------- DATA:", data)
@@ -15,7 +13,7 @@ export default function Template({ data }) {
   if (data.markdownRemark === null || data.markdownRemark === undefined)
     return null
 
-  const { markdownRemark } = data
+  const { markdownRemark, popularRecipes } = data
   const { frontmatter, html } = markdownRemark
   const { img, title, recipe } = frontmatter
 
@@ -31,10 +29,10 @@ export default function Template({ data }) {
           margin: "0 auto",
           borderBottom: "1px solid orange",
           paddingBottom: "30px",
-          mt: "3",
+          my: 3,
         }}
       >
-        <h3 sx={{ textAlign: "center" }}> {frontmatter.title} </h3>
+        <h3 sx={{ textAlign: "center", mt: 3 }}> {frontmatter.title} </h3>
         {/* <HorizontalCard data={frontmatter}></HorizontalCard> */}
 
         <Img
@@ -42,14 +40,19 @@ export default function Template({ data }) {
           // fluid={img.childImageSharp.fluid}
 
           sx={{
-            my: 5,
+            mb: 5,
+            mt: 4,
             mx: "auto",
-            maxWidth: ["100%", "80%"],
+            maxWidth: ["100%", "70%"],
           }}
           fluid={{ ...img.childImageSharp.fluid, aspectRatio: 21 / 10 }}
         />
 
-        <Grid gap={4} columns={[1, 2]}>
+        <Grid
+          gap={4}
+          columns={[1, 2]}
+          sx={{ maxWidth: ["100%", "90%"], m: "0 auto" }}
+        >
           <div
             sx={{
               order: 1,
@@ -64,6 +67,16 @@ export default function Template({ data }) {
             {frontmatter.recipe}
           </p>
         </Grid>
+      </div>
+      <div
+        sx={{
+          maxWidth: "container",
+          mx: "auto",
+          my: 3,
+        }}
+      >
+        <h2 sx={{ textAlign: "left", mb: 2 }}>Similar recipes</h2>
+        <RecipeCards recipes={popularRecipes.nodes} />
       </div>
     </Layout>
   )
@@ -83,6 +96,26 @@ export const pageQuery = graphql`
               ...GatsbyImageSharpFluid
             }
           }
+        }
+      }
+    }
+
+    popularRecipes: allMarkdownRemark(
+      limit: 4
+      filter: { fileAbsolutePath: { regex: "//markdown-pages/recipes/" } }
+    ) {
+      nodes {
+        id
+        frontmatter {
+          path
+          img {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+          title
         }
       }
     }

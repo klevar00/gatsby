@@ -16,11 +16,10 @@ const IndexPage = ({ data }) => {
       {/* <h3 sx={{textAlign: "center", my: 5}}> WELCOME </h3> */}
       <div
         sx={{
-          width: "100%",
+          width: ["100%", "90%"],
           maxWidth: "container",
           margin: "0 auto",
-          borderBottom: "1px solid orange",
-          paddingBottom: "30px",
+          py: "30px",
           mt: "3",
         }}
       >
@@ -33,7 +32,7 @@ const IndexPage = ({ data }) => {
           py: "30px",
         }}
       >
-        <h2 sx={{ textAlign: "left" }}>Most popular recipes</h2>
+        <h2 sx={{ textAlign: "left", mb: 2 }}>Most popular recipes</h2>
         <RecipeCards recipes={popularRecipes.nodes} />
       </div>
       <BlogPosts posts={blogPosts.nodes} />
